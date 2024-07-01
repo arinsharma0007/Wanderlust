@@ -5,7 +5,12 @@
       <br /><br />
       <h1>Add your new listing</h1>
 
-      <form action="/listings" method="POST">
+      <form
+        action="/listings"
+        method="POST"
+        class="needs-validation"
+        novalidate
+      >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
           <input
@@ -13,7 +18,9 @@
             name="listing[title]"
             placeholder="Add a Sticky Title"
             class="form-control"
+            required
           />
+          <div class="valid-feedback">Looks good!</div>
         </div>
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
@@ -21,7 +28,9 @@
             name="listing[description]"
             placeholder="Enter description"
             class="form-control"
+            required
           ></textarea>
+          <div class="invalid-feedback">Please enter a short description</div>
         </div>
         <div>
           <label for="image" class="form-label">Image Link</label>
@@ -37,11 +46,12 @@
           <div class="mb-3 col-md-4">
             <label for="price" class="form-label">Price</label>
             <input
-              type="number"
               name="listing[price]"
               placeholder="1500"
               class="form-control"
+              required
             />
+            <div class="invalid-feedback">Price should be valid</div>
           </div>
           <div class="mb-3 col-md-8">
             <label for="country" class="form-label">Country</label>
@@ -50,7 +60,9 @@
               name="listing[country]"
               placeholder="India"
               class="form-control"
+              required
             />
+            <div class="invalid-feedback">Country should be valid</div>
           </div>
         </div>
 
@@ -61,7 +73,9 @@
             name="listing[location]"
             placeholder="Jaipur ,Rajasthan"
             class="form-control"
+            required
           />
+          <div class="invalid-feedback">Location should be valid</div>
         </div>
 
         <br />
