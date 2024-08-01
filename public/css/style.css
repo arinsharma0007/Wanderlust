@@ -82,6 +82,46 @@ body {
   text-decoration: none;
 }
 
+/* Filters */
+#filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.filter {
+  text-align: center;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  opacity: 0.7;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.filter p {
+  font-size: 0.8rem;
+}
+
+.tax-info {
+  display: none;
+}
+
+.tax-toggle {
+  border: 1px solid gray;
+  border-radius: 1rem;
+  height: 3.25rem;
+  padding: 1rem;
+  margin-top: 0.85rem;
+  margin-left: 2rem;
+}
+
+.filter-btns {
+  margin: 0px !important;
+}
+
 /* Card Effect */
 
 .card-img-overlay {
@@ -124,4 +164,19 @@ body {
 .edit-btn {
   border: none !important;
   background-color: #fe424d !important;
+}
+
+/* map */
+
+body {
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 300px;
+  width: 80vh;
+}
+
+.orgPrice {
+  display: inline;
 }

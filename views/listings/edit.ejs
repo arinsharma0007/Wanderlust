@@ -4,7 +4,7 @@
         <div class="col offset-2">
             <br><br>
      <h1>Edit Listing</h1>
-    <form action="/listings/<%= listing._id%>?_method=PUT" method="POST" class="needs-validation" novalidate>
+    <form action="/listings/<%= listing._id%>?_method=PUT" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
       <div class="mb-3">
         <label for="title" class="form-label">Title</label>
         <input
@@ -24,15 +24,19 @@
             <%= listing.description %></textarea
         >  <div class="invalid-feedback">Please enter a short description</div>
       </div>
+
+      <div class="mb-3">
+        Original Listing Image <br>
+        <img src="<%= originalImageUrl %>" alt="Image not found">
+      </div>
       <div>
-        <label for="image" class="form-label">Image Link</label>
+        <label for="image" class="form-label">Upload Image </label>
         <input
-          type="text"
+          type="file"
           name="listing[image]"
-          value="<%= listing.image %>"
-          placeholder="Enter Image Url/Link"
+         
           class="form-control"
-          required
+         
           
         /> <div class="invalid-feedback">Please enter a valid link for image</div>
       </div>
@@ -70,11 +74,33 @@
         /> <div class="invalid-feedback">Location should be valid</div>
       </div>
     
+      <div class="dropdown-center">
+        <select
+          name="listing[category]"
+          selected = "<%= listing.category%>"
+          class="form-control"
+        >
+          <option value="Trending">Trending</option>
+          <option value="Pools">Pools</option>
+          <option value="Rooms">Rooms</option>
+          <option value="Castle">Castle</option>
+          <option value="Mountains">Mountains</option>
+          <option value="Icons">Icons</option>
+          <option value="Play">Play</option>
+          <option value="Beach">Beach</option>
+          <option value="Treehouse">Treehouse</option>
+          <option value="Farms">Farms</option>
+          <option value="Igloo">Igloo</option>
+          <option value="Ocean">Ocean</option>
+        </select>
+      </div>
 
       <br />
-      <button class="btn btn-dark edit-btn ">Edit</button>
+      <button class="btn btn-dark edit-btn">Edit</button>
     <br><br>
     </form>
   </body>
 </div>
 </div>
+
+<script src="/js/map.js"></script>

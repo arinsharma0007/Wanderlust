@@ -10,6 +10,7 @@
         method="POST"
         class="needs-validation"
         novalidate
+        enctype="multipart/form-data"
       >
         <div class="mb-3">
           <label for="title" class="form-label">Title</label>
@@ -33,12 +34,14 @@
           <div class="invalid-feedback">Please enter a short description</div>
         </div>
         <div>
-          <label for="image" class="form-label">Image Link</label>
+          <label for="listing[image]" class="form-label"
+            >Upload Listing Image</label
+          >
           <input
-            type="text"
+            type="file"
             name="listing[image]"
-            placeholder="Enter Image Url/Link"
             class="form-control"
+            required
           />
         </div>
 
@@ -79,6 +82,22 @@
         </div>
 
         <br />
+        <div class="dropdown-center">
+          <select name="listing[category]" class="form-control">
+            <option value="Trending">Trending</option>
+            <option value="Pools">Pools</option>
+            <option value="Rooms">Rooms</option>
+            <option value="Castle">Castle</option>
+            <option value="Mountains">Mountains</option>
+            <option value="Icons">Icons</option>
+            <option value="Play">Play</option>
+            <option value="Beach">Beach</option>
+            <option value="Treehouse">Treehouse</option>
+            <option value="Farms">Farms</option>
+            <option value="Igloo">Igloo</option>
+            <option value="Ocean">Ocean</option>
+          </select>
+        </div>
 
         <button class="btn add-btn mt-3">Add</button>
         <br /><br />
