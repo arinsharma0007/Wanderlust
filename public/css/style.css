@@ -84,9 +84,14 @@ body {
 
 /* Filters */
 #filters {
+  /* to ensure it stays above other content */
+
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  position: sticky;
+  top: 0; /* required */
+  z-index: 100;
 }
 
 .filter {

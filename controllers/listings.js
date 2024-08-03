@@ -11,22 +11,32 @@ module.exports.index = async (req, res) => {
 };
 
 module.exports.search = async (req, res) => {
-  let country = req.query.search;
+  let search = req.query.search;
 
-  let allListings = await Listing.find();
+  let allListings = await Listing.find({
+    $or: [
+      { title: { $regex: search } },
+      { catagory: { $regex: search } },
+      { country: { $regex: search, $options: "i" } },
+      { location: { $regex: search } },
+    ],
+  });
 
-  const cityListings = country
-    ? allListings.filter(
-        (listing) => listing.country.toLowerCase() === country.toLowerCase()
-      )
-    : allListings;
+  // const cityListings = search
+  //   ? allListings.filter(
+  //       (listing) => listing.country.toLowerCase() === country.toLowerCase()
+  //     )
+  //   : allListings;
 
-  if (cityListings.length === 0) {
-    req.flash("error", "OOPS! No listing available");
-    res.redirect("/listings");
-  } else {
-    res.render("listings/index.ejs", { allListings: cityListings });
-  }
+  // if (cityListings.length === 0) {
+  //   req.flash("error", "OOPS! No listing available");
+  //   res.redirect("/listings");
+  // } else {
+  //   res.render("listings/index.ejs", { allListings: cityListings });
+  // }
+
+  let btnValue = search;
+  res.render("listings/category.ejs", { allListings, btnValue });
 };
 
 module.exports.categoryListing = async (req, res) => {
@@ -34,7 +44,7 @@ module.exports.categoryListing = async (req, res) => {
 
   const allListings = await Listing.find({ category: btnValue });
   console.log(allListings);
-  res.render("listings/category.ejs", { allListings, btnValue, req });
+  res.render("listings/category.ejs", { allListings, btnValue });
 };
 
 module.exports.renderNewForm = (req, res) => {
@@ -56,7 +66,7 @@ module.exports.showListing = async (req, res) => {
     req.flash("error", "The listing you requested for doesn't exist!");
     res.redirect("/listings");
   }
-  // console.log(listing);
+
   res.render("listings/show.ejs", { listing });
 };
 
@@ -98,14 +108,6 @@ module.exports.renderEditForm = async (req, res) => {
 };
 
 module.exports.updateListing = async (req, res) => {
-  //For Location Update
-  let response = await geocodingClient
-    .forwardGeocode({
-      query: req.body.listing.location,
-      limit: 1,
-    })
-    .send();
-
   let { id } = req.params;
   if (!req.body.listing) {
     new ExpressError(400, "Please send valid data for listing");
@@ -115,8 +117,8 @@ module.exports.updateListing = async (req, res) => {
     let url = req.file.path;
     let filename = req.file.filename;
     listing.image = { url, filename };
-    // listing.geometry = response.body.features[0].geometry;
-    console.log(response);
+
+    // console.log(response);
     await listing.save();
   }
   req.flash("success", "Listing Updated!");
@@ -126,7 +128,7 @@ module.exports.updateListing = async (req, res) => {
 module.exports.destroyListing = async (req, res) => {
   let { id } = req.params;
   const deletedListing = await Listing.findByIdAndDelete(id);
-  console.log(deletedListing);
+  // console.log(deletedListing);
   req.flash("success", "Listing Deleted!");
   res.redirect("/listings");
 };
