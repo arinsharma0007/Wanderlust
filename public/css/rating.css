@@ -198,3 +198,7 @@
   -webkit-transition: background-position 0.7s;
   transition: background-position 0.7s;
 }
+
+.rating {
+  font-size: small;
+}
